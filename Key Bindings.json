@@ -1,0 +1,3 @@
+[
+	{ "keys": ["Shift+r"], "command": "select_by_reg_exp" }
+]
