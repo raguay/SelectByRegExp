@@ -4,7 +4,14 @@ import os, re
 class SelectByRegExp(DirectoryPaneCommand):
     def __call__(self):
         regexp,okay = show_prompt("Your Regular Expression for Selection:")
-        pattern = re.compile(regexp)
+        if not okay:
+            return
+        try:
+            pattern = re.compile(regexp)
+        except Exception as e:
+            show_alert('Your Regular Expression statement is not valid.')
+            self.__call__()
+            return
         currentDir = self.pane.get_path()
         filesInDir = os.listdir(currentDir)
         for filep in filesInDir:
