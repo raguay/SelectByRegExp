@@ -6,8 +6,11 @@ Install by uploading "SelectByRegExp" to your [data directory](https://fman.io/d
 
 ### Usage
 
-When you press **Shift+m** (I'm using my Vim Keymappings), Fman will ask for a regular expression. Once you give one, it will select files in the current directory that matches the regular expression.
+When you press **Shift+r** (I'm using my Vim Keymappings), Fman will ask for a regular expression. Once you give one, it will select files in the current directory that matches the regular expression.
+
+It also stores past regular expresstions so that you can quickly search for them also. You can use the `Select Reg Exp To Remove` command to remove an expression from the history.
 
 ### Features
 
- - Select files based on regular expressions.
+ - Select/Deselect files based on regular expressions.
+ - Keep a history of selections.
