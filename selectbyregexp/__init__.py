@@ -1,6 +1,10 @@
 from core.quicksearch_matchers import contains_chars
 from fman import DirectoryPaneCommand, show_alert, show_prompt, show_quicksearch, QuicksearchItem, show_status_message, clear_status_message
-import os, re
+import os
+import re
+from fman.url import as_human_readable
+from fman.url import as_url
+
 
 REGULAREXPRESSIONHIST = os.path.expanduser("~") + "/.regexphist"
 
@@ -13,7 +17,7 @@ class SelectByRegExp(DirectoryPaneCommand):
             try:
                 pattern = re.compile(regexp)
             except Exception as e:
-                show_alert('Your Regular Expression statement is not valid.')
+                show_alert('Your Regular Expression statement is not valid.' + e)
                 self.__call__()
                 return
             used = False
@@ -27,11 +31,11 @@ class SelectByRegExp(DirectoryPaneCommand):
             if not used:
                 with open(REGULAREXPRESSIONHIST, "a") as f:
                     f.write(regexp + "\n")
-            currentDir = self.pane.get_path()
+            currentDir = as_human_readable(self.pane.get_path())
             filesInDir = os.listdir(currentDir)
             for filep in filesInDir:
                 if pattern.search(filep):
-                    self.pane.toggle_selection(currentDir + os.sep + filep)
+                    self.pane.toggle_selection(as_url(currentDir + os.sep + filep))
         clear_status_message()
 
     def _suggest_projects(self, query):
