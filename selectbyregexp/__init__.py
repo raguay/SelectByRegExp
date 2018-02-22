@@ -8,6 +8,7 @@ from fman.url import as_url
 
 REGULAREXPRESSIONHIST = os.path.expanduser("~") + "/.regexphist"
 
+
 class SelectByRegExp(DirectoryPaneCommand):
     def __call__(self):
         show_status_message('Regular Expressions Selection')
@@ -17,7 +18,7 @@ class SelectByRegExp(DirectoryPaneCommand):
             try:
                 pattern = re.compile(regexp)
             except Exception as e:
-                show_alert('Your Regular Expression statement is not valid.' + e)
+                show_alert('Your Regular Expression statement is not valid.' + str(e))
                 self.__call__()
                 return
             used = False
@@ -53,6 +54,7 @@ class SelectByRegExp(DirectoryPaneCommand):
                     yield QuicksearchItem(regex, highlight=match)
         if not found:
             yield QuicksearchItem(query)
+
 
 class SelectRegExpToRemove(DirectoryPaneCommand):
     def __call__(self):
