@@ -2,7 +2,7 @@
 
 Plugin for [fman.io](https://fman.io) that allows you to select files in the current pane based on a regular expression.
 
-Install by uploading "SelectByRegExp" to your [data directory](https://fman.io/docs/customizing-fman)`/Plugins`.
+To install this plugin, use [fman's built-in command](https://fman.io/docs/installing-plugins).
 
 ### Usage
 
