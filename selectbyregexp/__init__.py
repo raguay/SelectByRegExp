@@ -2,8 +2,8 @@ from core.quicksearch_matchers import contains_chars
 from fman import DirectoryPaneCommand, show_alert, show_prompt, show_quicksearch, QuicksearchItem, show_status_message, clear_status_message
 import os
 import re
-from fman.url import as_human_readable
-from fman.url import as_url
+from fman.url import as_human_readable, splitscheme, as_url
+from fman.fs import iterdir
 
 
 REGULAREXPRESSIONHIST = os.path.expanduser("~") + "/.regexphist"
@@ -32,11 +32,10 @@ class SelectByRegExp(DirectoryPaneCommand):
             if not used:
                 with open(REGULAREXPRESSIONHIST, "a") as f:
                     f.write(regexp + "\n")
-            currentDir = as_human_readable(self.pane.get_path())
-            filesInDir = os.listdir(currentDir)
-            for filep in filesInDir:
+            scheme, currentDir = splitscheme(self.pane.get_path())
+            for filep in iterdir(self.pane.get_path()):
                 if pattern.search(filep):
-                    self.pane.toggle_selection(as_url(currentDir + os.sep + filep))
+                    self.pane.toggle_selection(as_url(currentDir + os.sep + filep, scheme))
         clear_status_message()
 
     def _suggest_projects(self, query):
